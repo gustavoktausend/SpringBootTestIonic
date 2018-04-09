@@ -1,5 +1,6 @@
 package com.rest.springbootangular;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,20 @@ import com.rest.springbootangular.dao.CidadeDAO;
 import com.rest.springbootangular.dao.ClienteDAO;
 import com.rest.springbootangular.dao.EnderecoDAO;
 import com.rest.springbootangular.dao.EstadoDAO;
+import com.rest.springbootangular.dao.PagamentoDAO;
+import com.rest.springbootangular.dao.PedidoDAO;
 import com.rest.springbootangular.dao.ProdutoDAO;
 import com.rest.springbootangular.domain.Categoria;
 import com.rest.springbootangular.domain.Cidade;
 import com.rest.springbootangular.domain.Cliente;
 import com.rest.springbootangular.domain.Endereco;
 import com.rest.springbootangular.domain.Estado;
+import com.rest.springbootangular.domain.Pagamento;
+import com.rest.springbootangular.domain.PagamentoComBoleto;
+import com.rest.springbootangular.domain.PagamentoComCartao;
+import com.rest.springbootangular.domain.Pedido;
 import com.rest.springbootangular.domain.Produto;
+import com.rest.springbootangular.domain.enums.EstadoPagamento;
 import com.rest.springbootangular.domain.enums.TipoCliente;
 
 @SpringBootApplication
@@ -36,7 +44,10 @@ public class SpringBootAngularRestApplication implements CommandLineRunner {
 	private EnderecoDAO enderecoDao;
 	@Autowired
 	private ClienteDAO clienteDao;
-	
+	@Autowired
+	private PedidoDAO pedidoDao;
+	@Autowired
+	private PagamentoDAO pagamentoDao;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootAngularRestApplication.class, args);
@@ -89,6 +100,25 @@ public class SpringBootAngularRestApplication implements CommandLineRunner {
 		clienteDao.saveAll(Arrays.asList(cli1));
 		enderecoDao.saveAll(Arrays.asList(e1,e2));
 		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
+		
+		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
+		
+		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
+		
+		ped1.setPagamento(pagto1);
+
+		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
+		
+		ped2.setPagamento(pagto2);
+		
+		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
+		
+		pedidoDao.saveAll(Arrays.asList(ped1,ped2));
+		pagamentoDao.saveAll(Arrays.asList(pagto1,pagto2));
 		
 	}
 }
