@@ -21,6 +21,7 @@ import com.rest.springbootangular.domain.Cidade;
 import com.rest.springbootangular.domain.Cliente;
 import com.rest.springbootangular.domain.Endereco;
 import com.rest.springbootangular.domain.Estado;
+import com.rest.springbootangular.domain.ItemPedido;
 import com.rest.springbootangular.domain.Pagamento;
 import com.rest.springbootangular.domain.PagamentoComBoleto;
 import com.rest.springbootangular.domain.PagamentoComCartao;
@@ -119,6 +120,10 @@ public class SpringBootAngularRestApplication implements CommandLineRunner {
 		
 		pedidoDao.saveAll(Arrays.asList(ped1,ped2));
 		pagamentoDao.saveAll(Arrays.asList(pagto1,pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.0);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.0);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.0);
 		
 	}
 }
