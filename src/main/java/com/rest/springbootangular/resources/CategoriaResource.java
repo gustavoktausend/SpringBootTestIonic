@@ -11,7 +11,7 @@ import com.rest.springbootangular.domain.Categoria;
 import com.rest.springbootangular.services.CategoriaService;
 
 @RestController
-@RequestMapping(value="/categorias/")
+@RequestMapping(value="/categorias")
 public class CategoriaResource {
 	
 	@Autowired

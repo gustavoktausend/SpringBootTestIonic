@@ -11,7 +11,7 @@ import com.rest.springbootangular.domain.Cliente;
 import com.rest.springbootangular.services.ClienteService;
 
 @RestController
-@RequestMapping(value="/clientes/")
+@RequestMapping(value="/clientes")
 public class ClienteResource {
 	
 	@Autowired

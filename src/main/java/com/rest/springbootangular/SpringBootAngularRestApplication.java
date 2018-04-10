@@ -13,6 +13,7 @@ import com.rest.springbootangular.dao.CidadeDAO;
 import com.rest.springbootangular.dao.ClienteDAO;
 import com.rest.springbootangular.dao.EnderecoDAO;
 import com.rest.springbootangular.dao.EstadoDAO;
+import com.rest.springbootangular.dao.ItemPedidoDAO;
 import com.rest.springbootangular.dao.PagamentoDAO;
 import com.rest.springbootangular.dao.PedidoDAO;
 import com.rest.springbootangular.dao.ProdutoDAO;
@@ -49,6 +50,8 @@ public class SpringBootAngularRestApplication implements CommandLineRunner {
 	private PedidoDAO pedidoDao;
 	@Autowired
 	private PagamentoDAO pagamentoDao;
+	@Autowired
+	private ItemPedidoDAO itemPedidoDao;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootAngularRestApplication.class, args);
@@ -124,6 +127,13 @@ public class SpringBootAngularRestApplication implements CommandLineRunner {
 		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.0);
 		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.0);
 		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.0);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		itemPedidoDao.saveAll(Arrays.asList(ip1,ip2));
+		
+		
 		
 	}
 }

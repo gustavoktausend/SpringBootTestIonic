@@ -5,20 +5,20 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rest.springbootangular.dao.CategoriaDAO;
-import com.rest.springbootangular.domain.Categoria;
+import com.rest.springbootangular.dao.ProdutoDAO;
+import com.rest.springbootangular.domain.Produto;
 import com.rest.springbootangular.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class CategoriaService {
+public class ProdutoService {
 	@Autowired
-	private CategoriaDAO repo;
+	private ProdutoDAO repo;
 	
-	public Categoria find(Integer id) {
-		Optional<Categoria> obj = repo.findById(id);
+	public Produto find(Integer id) {
+		Optional<Produto> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-		"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+		"Objeto não encontrado! Id: " + id + ", Tipo: " + Produto.class.getName()));
 		}
 
+
 }
-	
