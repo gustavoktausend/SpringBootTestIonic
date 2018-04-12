@@ -3,10 +3,12 @@ package com.rest.springbootangular.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.rest.springbootangular.dao.CategoriaDAO;
 import com.rest.springbootangular.domain.Categoria;
+import com.rest.springbootangular.services.exceptions.DataIntegrityException;
 import com.rest.springbootangular.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -32,8 +34,15 @@ public class CategoriaService {
 		
 	}
 	
-	public void delete(Optional<Integer> id) {
-		id.ifPresent(repo::deleteById);
+	public void delete(Integer id) {
+		find(id);
+		try {
+		repo.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possivel excluir uma categoria com produtos vinculados");
+			
+		}
 	}
 
 }
