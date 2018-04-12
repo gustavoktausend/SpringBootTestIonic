@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.rest.springbootangular.dao.CategoriaDAO;
 import com.rest.springbootangular.domain.Categoria;
+import com.rest.springbootangular.dto.CategoriaDTO;
 import com.rest.springbootangular.services.exceptions.DataIntegrityException;
 import com.rest.springbootangular.services.exceptions.ObjectNotFoundException;
 
@@ -58,5 +59,8 @@ public class CategoriaService {
 		return repo.findAll(pageRequest);
 	}
 	
+	public Categoria fromDTO(CategoriaDTO objDto) {
 		
+		return new Categoria(objDto.getId(),objDto.getNome());
+	}
 }	
