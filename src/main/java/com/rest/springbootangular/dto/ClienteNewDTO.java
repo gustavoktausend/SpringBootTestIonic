@@ -2,7 +2,10 @@ package com.rest.springbootangular.dto;
 
 import java.io.Serializable;
 
-import com.rest.springbootangular.domain.Cidade;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 public class ClienteNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -10,25 +13,31 @@ public class ClienteNewDTO implements Serializable{
 
 //	Cliente
 	
-	
+	@NotEmpty(message="Preenchimento Obrigatório")
+	@Length(min=5,max=120, message="Tamanho entre 5 e 120 caracteres")
 	private String nome;
+	@NotEmpty(message="Preenchimento Obrigatório")
+	@Email(message="Email Inválido")
 	private String email;
+	@NotEmpty(message="Preenchimento Obrigatório")
 	private String cpfOuCnpj;
+	@NotEmpty(message="Preenchimento Obrigatório")
 	private Integer tipoCliente;
-	
+	@NotEmpty(message="Preenchimento Obrigatório")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
-	
 	private Integer cidadeId;
-	
-	
 //	Endereço
-	 
+	
+	@NotEmpty(message="Preenchimento Obrigatório") 
 	private String logradouro;
+	@NotEmpty(message="Preenchimento Obrigatório")
 	private String numero;
 	private String complemento;
+	@NotEmpty(message="Preenchimento Obrigatório")
 	private String bairro;
+	@NotEmpty(message="Preenchimento Obrigatório")
 	private String cep;
 	
 	public ClienteNewDTO() {
